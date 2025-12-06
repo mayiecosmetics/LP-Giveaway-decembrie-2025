@@ -1,4 +1,4 @@
-:root {
+﻿:root {
     --color-primary: #FF6800;
     --color-primary-dark: #D95500;
     --color-accent: #F6517F;
@@ -570,3 +570,4 @@ p + p {
         padding: 1.5rem;
     }
 }
+

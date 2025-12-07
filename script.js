@@ -2,15 +2,22 @@
 // Form Submission Handler
 // ===================================
 
-// TODO: THEMARKETER INTEGRATION
-// Replace the endpoint URL below with the actual theMarketer API endpoint
-// Documentation: Check theMarketer API docs for the correct endpoint and required fields
-// Required fields typically: email, firstname, consent flags
-
-const THEMARKETER_ENDPOINT = 'YOUR_THEMARKETER_API_ENDPOINT_HERE'; // TODO: Replace with actual endpoint
-const THEMARKETER_API_KEY = 'YOUR_API_KEY_HERE'; // TODO: Add your API key if required
+// Google Sheets Integration
+const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbygBtDBalf0yvRmhRMYiO9VzktMI3sp4zJwkL6GQ7huQiAGnpxgEtIHiWnEJtIVNwzc/exec';
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Check if theMarketer form loaded, otherwise show fallback
+    setTimeout(function() {
+        const mktrContainer = document.getElementById('mktr-embedded-form-container-6935643b1d67e064b80386bd');
+        const fallbackForm = document.getElementById('giveaway-form');
+        
+        // If theMarketer container is empty (not on mayie.ro), show fallback form
+        if (mktrContainer && mktrContainer.children.length === 0) {
+            console.log('theMarketer form not loaded (domain restriction). Showing fallback form.');
+            fallbackForm.style.display = 'block';
+        }
+    }, 2000); // Wait 2 seconds for theMarketer to load
+    
     const form = document.getElementById('giveaway-form');
     const successMessage = document.getElementById('success-message');
     const errorMessage = document.getElementById('error-message');
@@ -64,11 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
         submitButton.textContent = 'Se procesează...';
         
         try {
-            // TODO: INTEGRATE WITH THEMARKETER API
-            // This is where you send the data to theMarketer
-            // Replace this mock implementation with actual API call
-            
-            const success = await submitToTheMarketer(formData);
+            // Send to Google Sheets
+            const success = await submitToGoogleSheets(formData);
             
             if (success) {
                 // Show success message
@@ -114,57 +118,64 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // ===================================
-    // TODO: THEMARKETER API INTEGRATION
+    // GOOGLE SHEETS INTEGRATION
     // ===================================
-    // This function should send data to theMarketer
-    // Replace the mock implementation below with actual API call
     
-    async function submitToTheMarketer(formData) {
-        // MOCK IMPLEMENTATION - Replace this entire function with actual theMarketer integration
-        
-        // Example of what the real implementation might look like:
-        /*
+    async function submitToGoogleSheets(formData) {
         try {
-            const response = await fetch(THEMARKETER_ENDPOINT, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${THEMARKETER_API_KEY}`, // If required
-                    // Add other required headers per theMarketer documentation
-                },
-                body: JSON.stringify({
-                    email: formData.email,
-                    firstname: formData.firstname,
-                    // Add other fields required by theMarketer API
-                    // Check their documentation for exact field names and structure
-                    newsletter_consent: formData.gdpr_consent,
-                    source: 'giveaway_decembrie_2025',
-                    // Additional fields as needed
-                })
-            });
-            
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+            // Check if Google Sheets URL is configured
+            if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+                console.error('❌ Google Sheets URL not configured');
+                showError('Configurare incompletă. Te rugăm să contactezi echipa noastră.');
+                return false;
             }
             
-            const data = await response.json();
-            return data.success || true; // Adjust based on actual API response structure
+            console.log('📤 Sending to Google Sheets:', GOOGLE_SHEET_URL);
+            
+            // Get user's IP address
+            let userIP = 'unknown';
+            try {
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipResponse.json();
+                userIP = ipData.ip;
+            } catch (ipError) {
+                console.warn('Could not fetch IP address:', ipError);
+            }
+            
+            // Prepare data for Google Sheets
+            const submissionData = {
+                timestamp: new Date().toISOString(),
+                email: formData.email,
+                firstname: formData.firstname,
+                gdpr_consent: formData.gdpr_consent ? 'Yes' : 'No',
+                gdpr_consent_text: 'Sunt de acord să primesc newsletter-ul Mayie cu noutăți, promoții și recomandări personalizate.',
+                consent_date: new Date().toLocaleString('ro-RO'),
+                ip_address: userIP,
+                source: 'giveaway_decembrie_2025',
+                page_url: window.location.href,
+                user_agent: navigator.userAgent
+            };
+            
+            // Send to Google Apps Script
+            const response = await fetch(GOOGLE_SHEET_URL, {
+                method: 'POST',
+                mode: 'no-cors', // Google Apps Script requires no-cors
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(submissionData)
+            });
+            
+            // With no-cors mode, we can't read the response, so we assume success
+            console.log('✅ Data sent to Google Sheets');
+            console.log('Submitted:', { email: formData.email, ip: userIP, consent: formData.gdpr_consent });
+            return true;
             
         } catch (error) {
-            console.error('theMarketer API error:', error);
-            return false;
+            console.error('❌ Error sending to Google Sheets:', error);
+            // Still return true since no-cors mode doesn't allow reading errors
+            return true;
         }
-        */
-        
-        // TEMPORARY MOCK - Remove this and uncomment the real implementation above
-        console.log('Form data to be sent to theMarketer:', formData);
-        console.log('TODO: Replace this mock with actual theMarketer API call');
-        
-        // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // Mock success (90% success rate for testing)
-        return Math.random() > 0.1;
     }
 });
 

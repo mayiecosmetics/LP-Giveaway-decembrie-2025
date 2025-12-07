@@ -11,6 +11,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- theMarketer Tracking Script -->
+    <script type="text/javascript">
+        var mktr_endpoint = 't.themarketer.com';
+        var mktr_key = '2LKKLHOB';
+    </script>
+    <script type="text/javascript" src="https://t.themarketer.com/track.js" async></script>
 </head>
 <body>
     <header class="site-header">
@@ -240,7 +247,11 @@
                     <p id="error-text">Te rugăm să încerci din nou în câteva momente.</p>
                 </div>
 
-                <form id="giveaway-form" class="giveaway-form" novalidate>
+                <!-- theMarketer Embedded Form (only works on mayie.ro domain) -->
+                <div id="mktr-embedded-form-container-6935643b1d67e064b80386bd" class="mktr-embedded-form-container"></div>
+                
+                <!-- Fallback form for local testing -->
+                <form id="giveaway-form" class="giveaway-form" novalidate style="display: none;">
                     <label class="form-control">
                         <span>Prenume *</span>
                         <input type="text" id="firstname" name="firstname" placeholder="Alexandra" required>
@@ -253,7 +264,6 @@
                         <input type="checkbox" id="gdpr-consent" name="gdpr_consent" required>
                         <span>Sunt de acord să primesc newsletter-ul Mayie cu noutăți, promoții și recomandări personalizate.</span>
                     </label>
-                    <p class="privacy-note">Zero spam, doar informații utile. Te poți dezabona oricând.</p>
                     <button type="submit" class="btn btn-primary btn-full">Mă înscriu în giveaway</button>
                 </form>
             </div>

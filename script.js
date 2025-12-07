@@ -6,22 +6,15 @@
 const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbygBtDBalf0yvRmhRMYiO9VzktMI3sp4zJwkL6GQ7huQiAGnpxgEtIHiWnEJtIVNwzc/exec';
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Check if theMarketer form loaded, otherwise show fallback
-    setTimeout(function() {
-        const mktrContainer = document.getElementById('mktr-embedded-form-container-6935643b1d67e064b80386bd');
-        const fallbackForm = document.getElementById('giveaway-form');
-        
-        // If theMarketer container is empty (not on mayie.ro), show fallback form
-        if (mktrContainer && mktrContainer.children.length === 0) {
-            console.log('theMarketer form not loaded (domain restriction). Showing fallback form.');
-            fallbackForm.style.display = 'block';
-        }
-    }, 2000); // Wait 2 seconds for theMarketer to load
-    
     const form = document.getElementById('giveaway-form');
     const successMessage = document.getElementById('success-message');
     const errorMessage = document.getElementById('error-message');
     const errorText = document.getElementById('error-text');
+    
+    if (!form) {
+        console.warn('Giveaway form element not found.');
+        return;
+    }
     
     // Smooth scroll for CTA buttons
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {

@@ -7,7 +7,7 @@ Modern, responsive landing page pentru campania de giveaway Supreme Anti-Aging R
 - ✅ Design modern, clean și minimalist
 - ✅ Responsive (mobil, tabletă, desktop)
 - ✅ Formular de înscriere cu validare
-- ✅ Integrare pregătită pentru theMarketer newsletter
+- ✅ Formular conectat direct la Google Sheets (Apps Script)
 - ✅ SEO optimized
 - ✅ Animații subtile la scroll
 - ✅ Cod curat și ușor de modificat
@@ -39,34 +39,14 @@ Editează variabilele CSS în `styles.css`:
 - **Hero image**: Supreme Anti-Aging Routine bundle
 - **Logo Mayie**: În footer
 
-## 🔌 Integrare theMarketer
+## 🔌 Integrare Google Sheets
 
-### Pași pentru configurare:
+Formularul scrie datele direct într-un Google Sheet prin Apps Script.
 
-1. **Deschide `script.js`**
-2. **Găsește secțiunea TODO: THEMARKETER INTEGRATION**
-3. **Înlocuiește**:
-   ```javascript
-   const THEMARKETER_ENDPOINT = 'YOUR_THEMARKETER_API_ENDPOINT_HERE';
-   ```
-   cu endpoint-ul real de la theMarketer
-
-4. **Modifică funcția `submitToTheMarketer()`** conform documentației theMarketer:
-   ```javascript
-   const response = await fetch(THEMARKETER_ENDPOINT, {
-       method: 'POST',
-       headers: {
-           'Content-Type': 'application/json',
-           // Adaugă header-e necesare
-       },
-       body: JSON.stringify({
-           email: formData.email,
-           firstname: formData.firstname,
-           newsletter_consent: formData.gdpr_consent,
-           source: 'giveaway_decembrie_2025'
-       })
-   });
-   ```
+1. Creează și publică scriptul urmând `GOOGLE_SHEETS_SETUP.md`
+2. Actualizează constanta `GOOGLE_SHEET_URL` din `script.js`
+3. Testează formularul și verifică în Google Sheet că apare un nou rând
+4. Exportă ulterior datele ca CSV pentru import în orice platformă de email
 
 ## 📱 Testare Locală
 
@@ -135,7 +115,7 @@ Pentru tracking, adaugă Google Analytics sau similar în `<head>`:
 
 ### Formularul nu trimite date
 - Verifică console-ul browser-ului pentru erori
-- Asigură-te că endpoint-ul theMarketer este corect configurat
+- Confirmă că `GOOGLE_SHEET_URL` pointează către Apps Script-ul publicat
 - Verifică că toate câmpurile obligatorii sunt completate
 
 ### Styling issues
@@ -145,7 +125,7 @@ Pentru tracking, adaugă Google Analytics sau similar în `<head>`:
 
 ## 📞 Contact
 
-Pentru întrebări despre integrarea theMarketer sau modificări:
+Pentru întrebări despre landing page sau integrarea Google Sheets:
 - Email: office@mayiecosmetics.ro
 - Website: www.mayie.ro
 

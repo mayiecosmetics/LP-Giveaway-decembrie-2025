@@ -112,7 +112,7 @@ Each submission creates a new row with:
 
 ✅ **Free** - No cost, unlimited submissions
 ✅ **GDPR Compliant** - Full audit trail with IP & consent
-✅ **Easy Export** - Download as CSV for theMarketer import
+✅ **Easy Export** - Download as CSV pentru orice platformă de email/CRM
 ✅ **Real-time** - See submissions instantly
 ✅ **Shareable** - Share with your team
 ✅ **Backup** - Google keeps version history
@@ -129,6 +129,6 @@ Each submission creates a new row with:
 
 After the giveaway, you can:
 1. Download the sheet as CSV
-2. Import to theMarketer manually
+2. Import fișierul în platforma ta de email marketing
 3. Add filters/formulas to analyze data
 4. Create charts to visualize signups over time

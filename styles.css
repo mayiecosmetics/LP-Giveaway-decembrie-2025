@@ -435,10 +435,39 @@ p + p {
     color: var(--color-muted);
 }
 
+.prize-card h3 {
+    margin-top: 0.4rem;
+    margin-bottom: 0.75rem;
+}
+
 .prize ul {
     list-style: disc;
     margin-left: 1.2rem;
     margin: 1rem 0;
+}
+
+.prize-card p {
+    color: var(--color-text-soft);
+    font-size: 0.95rem;
+}
+
+.prize-detail {
+    font-size: 0.95rem;
+    color: var(--color-text);
+}
+
+.prize-note-text {
+    font-size: 0.9rem;
+    color: var(--color-muted);
+}
+
+.prize-alert {
+    font-size: 0.9rem;
+    color: var(--color-primary-dark);
+    font-weight: 600;
+    background: rgba(255, 104, 0, 0.08);
+    border-radius: 12px;
+    padding: 0.65rem 0.85rem;
 }
 
 .prize-note {

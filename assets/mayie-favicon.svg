@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Mayie brain favicon">
+  <defs>
+    <linearGradient id="brainGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6800" />
+      <stop offset="100%" stop-color="#F6517F" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#FFF8F4" />
+  <path d="M20 20c-4 0-7 3-7 7s2 6 2 6-2 3-2 6 3 7 7 7c3 0 5-2 5-2s2 2 5 2c4 0 7-3 7-7 0-3-2-6-2-6s2-2 2-6-3-7-7-7c-3 0-5 2-5 2s-2-2-5-2z" fill="none" stroke="#322E21" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M27 24c0 3 3 5 5 6m-9 10c0-3-3-5-5-6m12 4c0 3 3 5 5 6" fill="none" stroke="url(#brainGlow)" stroke-width="2.4" stroke-linecap="round" />
+</svg>
